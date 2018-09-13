@@ -1,24 +1,37 @@
 Rails.application.routes.draw do
-
-  root to: 'products#index'
+  root to: "products#index"
 
   resources :products, only: [:index, :show]
-  resources :categories, only: [:show]
+  resources :categories, only: [:show, :index]
 
   resource :cart, only: [:show] do
-    post   :add_item
-    post   :remove_item
+    post :add_item
+    post :remove_item
   end
 
   resources :orders, only: [:create, :show]
 
   namespace :admin do
-    root to: 'dashboard#show'
+    root to: "dashboard#show"
     resources :products, except: [:edit, :update, :show]
   end
 
+  # resources :user, only: [:create, :show, :index]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+  # I've created a gif controller so I have a page I can secure later.
+  # This is optional (as is the root to: above).
+
+  # these routes are for showing users a login form, logging them in, and logging them out.
+  get "/login" => "session#new"
+  post "/login" => "session#create"
+  get "/logout" => "session#destroy"
+
+  # These routes will be for signup. The first renders a form in the browse, the second will
+  # receive the form and create a user in our database using the data given to us by the user.
+  get "/signup" => "user#new"
+  post "/user" => "user#create"
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
