@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :user_emails
   root to: "products#index"
 
   resources :products, only: [:index, :show]
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
     resources :products, except: [:edit, :update, :show]
   end
 
+  get :send_order_mail, to: "orders#send_order_mail", as: :send_order_mail
   # resources :user, only: [:create, :show, :index]
 
   # The priority is based upon order of creation: first created -> highest priority.

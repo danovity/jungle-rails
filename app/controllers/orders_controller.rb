@@ -6,8 +6,10 @@ class OrdersController < ApplicationController
   def create
     charge = perform_stripe_charge
     order = create_order(charge)
+    @order = Order.includes(line_items: [:product]).find(order.id)
 
     if order.valid?
+      UserMailer.welcome_email(order, @order).deliver_now
       empty_cart!
       redirect_to order, notice: "Your Order has been placed."
     else
@@ -35,10 +37,9 @@ class OrdersController < ApplicationController
 
   def create_order(stripe_charge)
     order = Order.new(
-      email: params[:stripeEmail],
+      email: "sean.xiaoxu.ye@gmail.com",
       total_cents: cart_subtotal_cents,
       stripe_charge_id: stripe_charge.id, # returned by stripe
-
     )
 
     enhanced_cart.each do |entry|
