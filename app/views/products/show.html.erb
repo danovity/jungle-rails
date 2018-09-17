@@ -24,8 +24,31 @@
           <dd><%= @product.price %></dd>
         </dl>
       </div>
-    </div>
+      <div>
 
+      <% if current_user %>
+        <%= form_for [@product, Review.new] do |f| %>
+        <div class="field">
+            <%= f.label :description %><br>
+            <%= f.text_area :description %>
+          </div>
+            <div class="field">
+              <%= f.label :rating %><br>
+              <%= f.select :rating, [1,2,3,4,5] %>
+            </div>
+            <div class="actions">
+              <%= f.submit %>
+            </div>
+        </div>
+      <% end %>
+      
+      <p>Review</p>
+        <% @product.reviews.reverse.each do |review| %>
+        <%= render 'review', review: review %>
+        <% end%>
+      </div>
+
+  <% end %>
   </article>
 
 </section>

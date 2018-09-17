@@ -1,0 +1,14 @@
+<div>
+    <h2>User</h2>
+    <h3><%= review.user.name %></h3>
+    <h2>Description</h2>
+    <h3><%= review.description %></h3>
+    <h2>Rating</h2>
+    <h3><%= review.rating %></h3>
+    <% if current_user && current_user.id === review.user.id %>
+        <h2> <%= link_to 'Delete', [review.product, review],
+                    method: :delete,
+                    data: { confirm: 'Are you sure?' } %></h2>
+    <% end %>
+
+</div>
