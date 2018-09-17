@@ -46,6 +46,7 @@ group :development, :test do
   gem 'byebug'
   gem 'quiet_assets'
   gem 'dotenv-rails'
+  gem 'shoulda-matchers', '~>3.0', require:false
 end
 
 group :development do
@@ -61,3 +62,5 @@ group :production do
   gem 'newrelic_rpm'
   gem 'rails_12factor'
 end
+
+gem 'paperclip'
