@@ -28,7 +28,7 @@ class UserEmailsController < ApplicationController
 
     respond_to do |format|
       if @user_email.save
-        format.html { redirect_to @user_email, notice: 'User email was successfully created.' }
+        format.html { redirect_to @user_email, notice: "User email was successfully created." }
         format.json { render :show, status: :created, location: @user_email }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class UserEmailsController < ApplicationController
   def update
     respond_to do |format|
       if @user_email.update(user_email_params)
-        format.html { redirect_to @user_email, notice: 'User email was successfully updated.' }
+        format.html { redirect_to @user_email, notice: "User email was successfully updated." }
         format.json { render :show, status: :ok, location: @user_email }
       else
         format.html { render :edit }
@@ -56,19 +56,20 @@ class UserEmailsController < ApplicationController
   def destroy
     @user_email.destroy
     respond_to do |format|
-      format.html { redirect_to user_emails_url, notice: 'User email was successfully destroyed.' }
+      format.html { redirect_to user_emails_url, notice: "User email was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user_email
-      @user_email = UserEmail.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_email_params
-      params.require(:user_email).permit(:name, :email, :login)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user_email
+    @user_email = UserEmail.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_email_params
+    params.require(:user_email).permit(:name, :email, :login)
+  end
 end
